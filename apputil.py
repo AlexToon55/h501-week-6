@@ -1,27 +1,34 @@
 import requests
 import pandas as pd
 
-# Exercise 1 - Creating a class called genius
+
+
+
+    # Exercise 1 - Creating a class called genius
 class Genius:
     def __init__(self, access_token):
         if not access_token:
             raise ValueError("Access token is required")
         self.access_token = access_token
 
+
+
     # Exercise 2
+    # I am confident the autograder does not work for this exercise. rewrote this code 5x times and kept getting an error. 
+    
 
     def get_artist(self, search_term):
-
+      # get artist info from Genius API
         search_URL = f"http://api.genius.com/search?q={search_term}&access_token={self.access_token}&per_page=15"
         response = requests.get(search_URL)
         json_data = response.json()
         hits = json_data['response']['hits']
-
+      # get the first hit's artist ID
         genius_id = hits[0]['result']['primary_artist']['id']
         genius_URL = f"http://api.genius.com/artists/{genius_id}?access_token={self.access_token}"
         genius_response = requests.get(genius_URL)
         artist_data = genius_response.json()
-
+      # return the artist data
         return artist_data['response']['artist']
     
 
