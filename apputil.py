@@ -1,5 +1,14 @@
+
+
+
+# access token setup
+from dotenv import load_dotenv
+load_dotenv("environ.env")
+
 import requests
 import os
+
+ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 
 # Exercise 1 - Creating a class called genius
 class Genius:
@@ -8,11 +17,11 @@ class Genius:
           raise ValueError("Access token is required")
       self.access_token = access_token
 
-  # Exercise 2
-  #Create a method for our `Genius` class called `.get_artist(search_term)` which does the following:
-  # 1. Extract the (most likely, "Primary") Artist ID from the first "hit" of the `search_term`.
-  # 2. Use the [API path](https://docs.genius.com/#artists-h2) for this Artist ID to pull information about the artist.
-  # 3. **Return** the dictionary containing the resulting JSON object.
+# Exercise 2
+#Create a method for our `Genius` class called `.get_artist(search_term)` which does the following:
+# 1. Extract the (most likely, "Primary") Artist ID from the first "hit" of the `search_term`.
+# 2. Use the [API path](https://docs.genius.com/#artists-h2) for this Artist ID to pull information about the artist.
+# 3. **Return** the dictionary containing the resulting JSON object.
 
   def get_artist(self, search_term):
 
