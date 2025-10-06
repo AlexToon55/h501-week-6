@@ -13,31 +13,19 @@ class Genius:
   # 2. Use the [API path](https://docs.genius.com/#artists-h2) for this Artist ID to pull information about the artist.
   # 3. **Return** the dictionary containing the resulting JSON object.
 
-  def get_artist(self, search_term):
-
-    # Searching the artist
-    search_URL = "http://api.genius.com/search"
-    
-    response = requests.get(
-        search_URL,
-        params={
-            "q": search_term,
-            "access_token": self.access_token,
-            "per_page": 15
-        }
-    )
-    
+def get_artist(self, search_term):
+    # Searching the artist — include token + per_page in the URL
+    search_URL = f"http://api.genius.com/search?q={search_term}&access_token={self.access_token}&per_page=15"
+    response = requests.get(search_URL)
     json_data = response.json()
     hits = json_data['response']['hits']
 
-
     genius_id = hits[0]['result']['primary_artist']['id']
     genius_URL = f"http://api.genius.com/artists/{genius_id}?access_token={self.access_token}"
-
     genius_response = requests.get(genius_URL)
     artist_data = genius_response.json()
 
-
     return artist_data['response']['artist']
+
 
   # Exercise 3
