@@ -1,14 +1,4 @@
-
-
-
-# access token setup
-from dotenv import load_dotenv
-load_dotenv("environ.env")
-
 import requests
-import os
-
-ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 
 # Exercise 1 - Creating a class called genius
 class Genius:
