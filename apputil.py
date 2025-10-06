@@ -7,33 +7,35 @@ class Genius:
           raise ValueError("Access token is required")
       self.access_token = access_token
 
-# Exercise 2
-#Create a method for our `Genius` class called `.get_artist(search_term)` which does the following:
-# 1. Extract the (most likely, "Primary") Artist ID from the first "hit" of the `search_term`.
-# 2. Use the [API path](https://docs.genius.com/#artists-h2) for this Artist ID to pull information about the artist.
-# 3. **Return** the dictionary containing the resulting JSON object.
+  # Exercise 2
+  #Create a method for our `Genius` class called `.get_artist(search_term)` which does the following:
+  # 1. Extract the (most likely, "Primary") Artist ID from the first "hit" of the `search_term`.
+  # 2. Use the [API path](https://docs.genius.com/#artists-h2) for this Artist ID to pull information about the artist.
+  # 3. **Return** the dictionary containing the resulting JSON object.
 
   def get_artist(self, search_term):
 
-    # make the request to search for the artist
-    search_URL = f"http://api.genius.com/search?q={search_term}&access_token={self.access_token}"
+    # Searching the artist
+    search_URL = "https://api.genius.com/search"
 
-    response = requests.get(search_URL)
+    response = requests.get(
+       search_URL, 
+       params = {'q': search_term, 'access_token': self.access_token}
+    )
     json_data = response.json()
     hits = json_data['response']['hits']
 
-    # variables for the search
+
     genius_id = hits[0]['result']['primary_artist']['id']
-    genius_URL = f"http://api.genius.com/artists/{genius_id}?access_token={self.access_token}"
-    
-    # make the request to get the artist information
-    genius_response = requests.get(genius_URL)
+    genius_URL = f"https://api.genius.com/artists/{genius_id}"
+
+    genius_response = requests.get(
+       genius_URL, 
+       params = {'access_token': self.access_token}
+    )
     artist_data = genius_response.json()
 
-    # return the artist information
-    try:
-        return artist_data['response']['artist']
-    except (KeyError, TypeError):
-        raise ValueError("Artist information not found in the response.")
 
-  # Exercise 3
+    return artist_data['response']['artist']
+
+# Exercise 3
