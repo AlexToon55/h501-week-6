@@ -16,16 +16,15 @@ class Genius:
   def get_artist(self, search_term):
 
     # make the request to search for the artist
-    search_URL = "https://api.genius.com/search"
-    params = {"q": search_term, "access_token": self.access_token}
+    search_URL = f"http://api.genius.com/search?q={search_term}&access_token={self.access_token}"
 
-    response = requests.get(search_URL, params=params)
+    response = requests.get(search_URL)
     json_data = response.json()
     hits = json_data['response']['hits']
 
     # variables for the search
     genius_id = hits[0]['result']['primary_artist']['id']
-    genius_URL = f"https://api.genius.com/artists/{genius_id}?access_token={self.access_token}"
+    genius_URL = f"http://api.genius.com/artists/{genius_id}?access_token={self.access_token}"
     
     # make the request to get the artist information
     genius_response = requests.get(genius_URL)
