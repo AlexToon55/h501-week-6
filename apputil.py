@@ -37,7 +37,13 @@ class Genius:
     def get_artists(self, search_terms):
         rows = []
         for term in search_terms:
-            artist = self.get_artist(term)
+            artist_data = self.get_artist(term)
+
+            if isinstance(artist_data, dict) and 'response' in artist_data:
+                artist = artist_data['response'].get('artist', {})
+            else:
+                artist = artist_data if isinstance(artist_data, dict) else {}
+
             rows.append({
                 'search_term': term,
                 'artist_name': artist.get('name'),
