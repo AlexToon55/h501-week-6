@@ -29,7 +29,7 @@ class Genius:
         genius_response = requests.get(genius_URL)
         artist_data = genius_response.json()
       # return the artist data
-        return artist_data['response']['artist']
+        return artist_data
     
 
     # Exercise 3
